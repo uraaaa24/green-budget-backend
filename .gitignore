@@ -151,7 +151,7 @@ docker-compose.override.yml   # Override file for local development
 *.sqlite3-journal             # SQLite journal files
 
 # Cache directories
-jyson_cache/                  # Python-related cache directory
+*.jyson_cache/                  # Python-related cache directory
 
 # VS Code settings
 .vscode/                      # VS Code settings directory
