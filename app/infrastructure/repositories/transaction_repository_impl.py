@@ -36,4 +36,6 @@ class TransactionRepositoryImpl(TransactionRepository):
         self.db.add(db_transaction)
         self.db.commit()
         self.db.refresh(db_transaction)
+
+        transaction.id = TransactionId(value=db_transaction.id)
         return transaction

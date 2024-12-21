@@ -1,6 +1,7 @@
+from typing import Optional
+from uuid import UUID
 from dataclasses import dataclass
 from datetime import datetime
-import random
 
 
 @dataclass
@@ -19,8 +20,8 @@ class TransactionAmount:
 
 @dataclass
 class Transaction:
-    id: TransactionId
-    user_id: int
+    id: Optional[TransactionId]
+    user_id: UUID
     category_id: int
     amount: TransactionAmount
     transaction_type: str
@@ -30,16 +31,15 @@ class Transaction:
     @classmethod
     def create(
         cls,
-        user_id: int,
+        user_id: UUID,
         category_id: int,
         amount: TransactionAmount,
         transaction_type: str,
         date: datetime,
         description: str,
     ):
-        transaction_id = TransactionId(value=random.randint(1, 10**6))
         return Transaction(
-            id=transaction_id,
+            id=None,
             user_id=user_id,
             category_id=category_id,
             amount=amount,
