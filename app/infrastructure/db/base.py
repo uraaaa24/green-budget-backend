@@ -1,15 +1,12 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
-# PostgreSQL接続用のデータベースURL
-DATABASE_URL = "postgresql://user:password@postgres_host:5432/dbname"
+DATABASE_URL = "postgresql+psycopg2://postgres:postgres@db:5432/postgres"
 
-# エンジン
 engine = create_engine(DATABASE_URL)
 
-# セッションローカル
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# ベースクラス
 Base = declarative_base()

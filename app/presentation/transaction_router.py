@@ -17,13 +17,13 @@ def get_db():
         db.close()
 
 
-@router.post("/transaction", response_model=TransactionResponse)
+@router.post("/", response_model=TransactionResponse)
 def create_transaction(transaction: TransactionCreate, db: Session = Depends(get_db)):
     usecase = TransactionUsecase(db)
     return usecase.create_transaction(transaction)
 
 
-@router.get("/transactions", response_model=list[TransactionResponse])
+@router.get("/", response_model=list[TransactionResponse])
 def get_transactions(db: Session = Depends(get_db)):
     usecase = TransactionUsecase(db)
     return usecase.get_transactions()

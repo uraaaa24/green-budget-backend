@@ -12,7 +12,7 @@ class TransactionRepositoryImpl(TransactionRepository):
         transactions = self.db.query(TransactionModel).all()
         return [
             Transaction(
-                id=TransactionId(t.id),
+                id=t.id,
                 user_id=t.user_id,
                 category_id=t.category_id,
                 amount=t.amount,

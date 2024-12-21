@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000:80
+      - 8000:8000
+    restart: always
     volumes:
       - .:/app
     depends_on:
@@ -18,9 +19,11 @@ services:
     container_name: green-budget-db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      # TODO: 将来的にはalembicを使ってマイグレーションを行う
+      - ./docker/initdb:/docker-entrypoint-initdb.d/
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
     ports:
       - 5432:5432
 

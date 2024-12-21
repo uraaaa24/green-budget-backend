@@ -1,16 +1,16 @@
 from typing import Literal
-from psycopg2 import Date
+from datetime import datetime
 from pydantic import BaseModel
 
 
 class TransactionCreate(BaseModel):
-    user_id: str
-    category_id: str
+    user_id: int
+    category_id: int
     amount: float
     transaction_type: Literal["income", "expense"]
-    date: Date
+    date: datetime
     description: str
 
 
 class TransactionResponse(TransactionCreate):
-    id: str
+    id: int

@@ -1,12 +1,11 @@
 from dataclasses import dataclass
-from enum import Enum
-
-from psycopg2 import Date
+from datetime import datetime
+import random
 
 
 @dataclass
 class TransactionId:
-    value: str
+    value: int
 
 
 @dataclass
@@ -18,33 +17,27 @@ class TransactionAmount:
             raise ValueError("Transaction amount must be a non-zero value")
 
 
-class TransactionType(Enum):
-    INCOME = "income"
-    EXPENSE = "expense"
-
-
 @dataclass
 class Transaction:
     id: TransactionId
-    user_id: str
-    category_id: str
+    user_id: int
+    category_id: int
     amount: TransactionAmount
-    transaction_type: TransactionType
-    date: Date
+    transaction_type: str
+    date: datetime
     description: str
 
     @classmethod
     def create(
-        user_id: str,
-        category_id: str,
+        cls,
+        user_id: int,
+        category_id: int,
         amount: TransactionAmount,
-        transaction_type: TransactionType,
-        date: Date,
+        transaction_type: str,
+        date: datetime,
         description: str,
     ):
-        import uuid
-
-        transaction_id = TransactionId(str(uuid.uuid4()))
+        transaction_id = TransactionId(value=random.randint(1, 10**6))
         return Transaction(
             id=transaction_id,
             user_id=user_id,

@@ -1,3 +1,4 @@
 from .models.transaction import TransactionModel
+from .models.user import UserModel
 
-__all__ = ["TransactionModel"]
+__all__ = ["UserModel", "TransactionModel"]
