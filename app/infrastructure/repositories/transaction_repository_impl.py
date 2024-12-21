@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.domain.repository.transaction_repository import TransactionRepository
+from app.domain.repositories.transaction_repository import TransactionRepository
 from app.domain.transaction import Transaction, TransactionId
 from app.infrastructure.db import TransactionModel
 
