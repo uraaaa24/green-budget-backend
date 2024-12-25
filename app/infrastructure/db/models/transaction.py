@@ -18,4 +18,4 @@ class TransactionModel(Base):
     amount = Column(Integer, nullable=False)
     transaction_type = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
-    description = Column(String, nullable=True)
+    note = Column(String, nullable=True)

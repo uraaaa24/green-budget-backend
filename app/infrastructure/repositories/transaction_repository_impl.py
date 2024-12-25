@@ -18,7 +18,7 @@ class TransactionRepositoryImpl(TransactionRepository):
                 amount=t.amount,
                 transaction_type=t.transaction_type,
                 date=t.date,
-                description=t.description,
+                note=t.note,
             )
             for t in transactions
         ]
@@ -31,7 +31,7 @@ class TransactionRepositoryImpl(TransactionRepository):
             amount=transaction.amount,
             transaction_type=transaction.transaction_type,
             date=transaction.date,
-            description=transaction.description,
+            note=transaction.note,
         )
         self.db.add(db_transaction)
         self.db.commit()
