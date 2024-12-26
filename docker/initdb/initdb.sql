@@ -8,6 +8,18 @@ CREATE TABLE users (
   email VARCHAR(255)
 );
 
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  description VARCHAR(255),
+  transaction_type VARCHAR(255),
+  user_id UUID,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 DROP TABLE IF EXISTS transactions;
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
@@ -17,12 +29,20 @@ CREATE TABLE transactions (
   transaction_type VARCHAR(255),
   note VARCHAR(255),
   date DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 INSERT INTO users (firebase_id, display_name, email)
 VALUES ('123', 'test', 'test@example.com'),
        ('456', 'test2', 'test2@example.com');
+
+INSERT INTO categories (name, description, transaction_type)
+VALUES ('Food', 'Food expenses', 'expense'),
+       ('Salary', 'Salary income', 'income'),
+        ('Transport', 'Transport expenses', 'expense'),
+        ('Bonus', 'Bonus income', 'income');
 
 INSERT INTO transactions (user_id, category_id, amount, transaction_type, note, date)
 VALUES ((SELECT id FROM users WHERE firebase_id = '123'), 1, 100.00, 'expense', 'test', '2021-01-01'),
