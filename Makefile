@@ -21,5 +21,4 @@ db-connect:
 	docker exec -it ${DB_CONTAINER_NAME} psql -U ${DB_USER} -d ${DB_NAME}
 
 clean:
-	docker-compose down --volumes --remove-orphans
-	docker system prune -f
+	docker compose down --rmi all --volumes --remove-orphans
