@@ -159,3 +159,6 @@ docker-compose.override.yml   # Override file for local development
 # OS-specific files
 .DS_Store                     # macOS metadata files
 Thumbs.db                     # Windows metadata files
+
+# Other
+serviceAccountKey.json

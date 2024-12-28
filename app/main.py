@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordBearer
 from app.presentation.routers import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
 

@@ -9,7 +9,7 @@ def get_database_url() -> str:
     Construct the database URL based on settings.
     """
     return (
-        f"postgresql+psycopg2://"
+        f"postgresql+psycopg://"
         f"{settings.postgres_user}:{settings.postgres_password}@"
         f"{settings.postgres_host}:{settings.postgres_port}/"
         f"{settings.postgres_db}"
