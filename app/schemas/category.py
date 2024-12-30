@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 from uuid import UUID
 from pydantic import BaseModel, Field
 from datetime import datetime
@@ -9,9 +9,13 @@ class CategoryCreate(BaseModel):
     description: str
     user_id: UUID
     transaction_type: Literal["income", "expense"]
-    created_at: datetime = Field(default_factory=datetime.now)
-    updated_at: datetime = Field(default_factory=datetime.now)
 
 
-class CategoryResponse(CategoryCreate):
+class CategoryResponse(BaseModel):
     id: int
+    name: str
+    description: str
+    user_id: Optional[UUID]
+    transaction_type: Literal["income", "expense"]
+    created_at: datetime
+    updated_at: datetime
