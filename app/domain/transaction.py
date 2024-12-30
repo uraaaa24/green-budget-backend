@@ -6,37 +6,20 @@ from datetime import datetime
 from enum import Enum
 
 
-class TransactionType(Enum):
-    INCOME = "income"
-    EXPENSE = "expense"
-
-
 @dataclass
-class TransactionId:
-    value: int
-
-    def __post_init__(self):
-        if self.value < 0:
-            raise ValueError("Transaction ID must be a positive integer")
-
-
-@dataclass
-class TransactionAmount:
-    value: Decimal
-
-    def __post_init__(self):
-        if self.value == 0:
-            raise ValueError("Transaction amount must be a non-zero value")
+class Category:
+    id: int
+    name: str
 
 
 @dataclass
 class Transaction:
     user_id: UUID
-    category_id: int
-    amount: TransactionAmount
-    transaction_type: TransactionType
+    category: Category
+    amount: int
+    transaction_type: str
     date: datetime
-    id: Optional[TransactionId] = None
+    id: Optional[int] = None
     note: Optional[str] = None
     created_at: datetime = field(default_factory=datetime.now)
 
@@ -44,8 +27,8 @@ class Transaction:
     def create(
         cls,
         user_id: UUID,
-        category_id: int,
-        amount: Decimal,
+        category: Category,
+        amount: int,
         transaction_type: str,
         date: datetime,
         note: Optional[str] = None,
@@ -53,9 +36,9 @@ class Transaction:
     ):
         return cls(
             user_id=user_id,
-            category_id=category_id,
-            amount=TransactionAmount(amount),
-            transaction_type=TransactionType(transaction_type),
+            category=category,
+            amount=amount,
+            transaction_type=transaction_type,
             date=date,
             note=note,
             created_at=created_at or datetime.now(),

@@ -5,15 +5,10 @@ from typing import Optional
 from uuid import UUID
 
 
-class TransactionType(Enum):
-    INCOME = "income"
-    EXPENSE = "expense"
-
-
 @dataclass
 class Category:
     name: str
-    transaction_type: TransactionType
+    transaction_type: str
     id: Optional[int] = None
     user_id: Optional[UUID] = None
     description: Optional[str] = None
@@ -32,14 +27,11 @@ class Category:
         name: str,
         description: Optional[str] = None,
     ):
-        if transaction_type not in [t.value for t in TransactionType]:
-            raise ValueError("Invalid transaction type: {transaction_type}")
-
         now = datetime.now()
         return cls(
             id=None,
             user_id=user_id,
-            transaction_type=TransactionType(transaction_type),
+            transaction_type=transaction_type,
             name=name,
             description=description,
             created_at=now,

@@ -8,14 +8,23 @@ from pydantic import BaseModel, Field
 class TransactionCreate(BaseModel):
     user_id: UUID
     category_id: int
-    amount: Decimal = Field(
-        ..., gt=0, description="Transaction amount must be greater than zero"
-    )
+    amount: int
     transaction_type: Literal["income", "expense"]
     date: datetime
     note: Optional[str] = None
-    created_at: datetime = Field(default_factory=datetime.now)
 
 
-class TransactionResponse(TransactionCreate):
+class Category(BaseModel):
     id: int
+    name: str
+
+
+class TransactionResponse(BaseModel):
+    id: int
+    user_id: UUID
+    category: Category
+    amount: int
+    transaction_type: Literal["income", "expense"]
+    date: datetime
+    note: Optional[str] = None
+    created_at: datetime

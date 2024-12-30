@@ -1,50 +1,60 @@
 \c postgres;
 
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  firebase_id VARCHAR(255),
+  firebase_uid VARCHAR(255) NOT NULL UNIQUE,
   display_name VARCHAR(255),
-  email VARCHAR(255)
+  email VARCHAR(255) NOT NULL UNIQUE
 );
 
-DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255),
+  name VARCHAR(255) NOT NULL,
   description VARCHAR(255),
-  transaction_type VARCHAR(255),
+  transaction_type VARCHAR(255) CHECK (transaction_type IN ('expense', 'income')),
   user_id UUID,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS transactions;
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
-  user_id UUID,
-  category_id INT,
-  amount DECIMAL(10, 2),
-  transaction_type VARCHAR(255),
+  user_id UUID NOT NULL,
+  category_id INT NOT NULL,
+  amount INT NOT NULL CHECK (amount >= 0),
+  transaction_type VARCHAR(255) CHECK (transaction_type IN ('expense', 'income')),
   note VARCHAR(255),
-  date DATE,
+  date DATE NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
-INSERT INTO users (firebase_id, display_name, email)
-VALUES ('123', 'test', 'test@example.com'),
-       ('456', 'test2', 'test2@example.com');
+INSERT INTO users (firebase_uid, display_name, email)
+VALUES
+  ('123', 'test', 'test@example.com'),
+  ('456', 'test2', 'test2@example.com');
 
 INSERT INTO categories (name, description, transaction_type)
-VALUES ('Food', 'Food expenses', 'expense'),
-       ('Salary', 'Salary income', 'income'),
-        ('Transport', 'Transport expenses', 'expense'),
-        ('Bonus', 'Bonus income', 'income');
+VALUES 
+  ('Food', 'Expenses for daily meals and dining out.', 'expense'),
+  ('Housing', 'Rent, utilities, and internet bills.', 'expense'),
+  ('Transportation', 'Public transport, fuel, taxi fares.', 'expense'),
+  ('Entertainment', 'Movies, games, hobbies, and travel.', 'expense'),
+  ('Household Items', 'Daily necessities like cleaning supplies.', 'expense'),
+  ('Other Expenses', 'Miscellaneous expenses not listed above.', 'expense'),
+  ('Salary', 'Monthly income from work.', 'income'),
+  ('Side Income', 'Earnings from freelancing or side jobs.', 'income'),
+  ('Bonus', 'Year-end or performance bonuses.', 'income'),
+  ('Other Income', 'Unexpected or additional income.', 'income');
 
 INSERT INTO transactions (user_id, category_id, amount, transaction_type, note, date)
-VALUES ((SELECT id FROM users WHERE firebase_id = '123'), 1, 100.00, 'expense', 'test', '2021-01-01'),
-       ((SELECT id FROM users WHERE firebase_id = '123'), 2, 200.00, 'income', 'test2', '2021-01-02'),
-       ((SELECT id FROM users WHERE firebase_id = '456'), 1, 300.00, 'expense', 'test3', '2021-01-03');
+VALUES ((SELECT id FROM users WHERE firebase_uid = '123'), 1, 100, 'expense', 'test', '2021-01-01'),
+  ((SELECT id FROM users WHERE firebase_uid = '123'), 2, 200, 'income', 'test2', '2021-01-02'),
+  ((SELECT id FROM users WHERE firebase_uid = '456'), 3, 300, 'expense', 'test3', '2021-01-03');

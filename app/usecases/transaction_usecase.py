@@ -17,7 +17,6 @@ class TransactionUsecase:
             transaction_type=transaction_data.transaction_type,
             date=transaction_data.date,
             note=transaction_data.note,
-            created_at=transaction_data.created_at,
         )
         return self.repository.insert(transaction)
 
