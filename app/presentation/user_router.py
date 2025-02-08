@@ -12,11 +12,5 @@ prefix = "/users"
 
 
 @router.get(f"{prefix}/me")
-async def read_users_me(db: Session = Depends(get_db), cred=Depends(get_current_user)):
-    # return UserModel(
-    #     firebase_uid=cred["uid"],
-    #     email=cred["email"],
-    #     display_name=cred["email"],
-    # )
-    usecase = UserUsecase(db)
-    return usecase.get_user(cred["sub"])
+async def read_users_me(auth_user: UserModel = Depends(get_current_user)):
+    return auth_user

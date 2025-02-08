@@ -5,5 +5,5 @@ class UserUsecase:
     def __init__(self, db):
         self.repository = UserRepositoryImpl(db)
 
-    def get_user(self, firebase_uid: str):
-        return self.repository.find_by_firebase_uid(firebase_uid)
+    def get_user(self, user_id: str):
+        return self.repository.find_by_user_id(user_id)

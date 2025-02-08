@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  firebase_uid VARCHAR(255) NOT NULL UNIQUE,
   display_name VARCHAR(255),
   email VARCHAR(255) NOT NULL UNIQUE
 );
@@ -36,10 +35,10 @@ CREATE TABLE transactions (
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
-INSERT INTO users (firebase_uid, display_name, email)
+INSERT INTO users (display_name, email)
 VALUES
-  ('123', 'test', 'test@example.com'),
-  ('456', 'test2', 'test2@example.com');
+  ('test', 'test@example.com'),
+  ('test2', 'test2@example.com');
 
 INSERT INTO categories (name, description, transaction_type)
 VALUES 
@@ -55,6 +54,6 @@ VALUES
   ('Other Income', 'Unexpected or additional income.', 'income');
 
 INSERT INTO transactions (user_id, category_id, amount, transaction_type, note, date)
-VALUES ((SELECT id FROM users WHERE firebase_uid = '123'), 1, 100, 'expense', 'test', '2021-01-01'),
-  ((SELECT id FROM users WHERE firebase_uid = '123'), 2, 200, 'income', 'test2', '2021-01-02'),
-  ((SELECT id FROM users WHERE firebase_uid = '456'), 3, 300, 'expense', 'test3', '2021-01-03');
+VALUES ((SELECT id FROM users WHERE email = 'test@example.com'), 1, 100, 'expense', 'test', '2021-01-01'),
+  ((SELECT id FROM users WHERE email = 'test@example.com'), 2, 200, 'income', 'test2', '2021-01-02'),
+  ((SELECT id FROM users WHERE email = 'test2@example.com'), 3, 300, 'expense', 'test3', '2021-01-03');

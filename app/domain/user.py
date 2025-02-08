@@ -7,7 +7,6 @@ from pydantic import Field
 @dataclass
 class User:
     id: int
-    firebase_uid: str
     display_name: str
     email: str
     created_at: datetime = Field(default_factory=datetime.now)
