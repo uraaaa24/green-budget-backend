@@ -6,4 +6,4 @@ class UserUsecase:
         self.repository = UserRepositoryImpl(db)
 
     def get_user(self, user_id: str):
-        return self.repository.find_by_user_id(user_id)
+        return self.repository.find_by_email(user_id)
