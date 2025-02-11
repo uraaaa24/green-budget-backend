@@ -27,7 +27,7 @@ CREATE TABLE categories (
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   user_id UUID NOT NULL,
-  category_id INT NOT NULL,
+  category_id INT,
   amount INT NOT NULL CHECK (amount >= 0),
   transaction_type VARCHAR(255) CHECK (transaction_type IN ('expense', 'income')),
   note VARCHAR(255),
@@ -35,7 +35,7 @@ CREATE TABLE transactions (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
 
 INSERT INTO users (display_name, email)

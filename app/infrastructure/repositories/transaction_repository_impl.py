@@ -9,20 +9,20 @@ class TransactionRepositoryImpl(TransactionRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def find_all(self) -> list[Transaction]:
+    def find_all(self, user_id: str) -> list[Transaction]:
         transactions = (
             self.db.query(
                 TransactionModel,
                 CategoryModel.name.label("category_name"),
             )
-            .join(CategoryModel, TransactionModel.category_id == CategoryModel.id)
+            .outerjoin(CategoryModel, TransactionModel.category_id == CategoryModel.id)
+            .filter(TransactionModel.user_id == user_id)
             .all()
         )
 
         return [
             Transaction(
                 id=t.TransactionModel.id,
-                user_id=t.TransactionModel.user_id,
                 category=t.category_name,
                 amount=t.TransactionModel.amount,
                 transaction_type=t.TransactionModel.transaction_type,

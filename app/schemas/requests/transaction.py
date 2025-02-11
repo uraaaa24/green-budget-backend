@@ -5,9 +5,8 @@ from typing import Literal, Optional
 
 
 class CreateTransaction(BaseModel):
-    user_id: UUID
-    category_id: int
     amount: int
     transaction_type: Literal["income", "expense"]
     date: datetime
+    category_id: Optional[int] = None
     note: Optional[str] = None

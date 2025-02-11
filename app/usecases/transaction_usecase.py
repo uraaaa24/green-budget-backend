@@ -9,9 +9,9 @@ class TransactionUsecase:
     def __init__(self, db):
         self.repository = TransactionRepositoryImpl(db)
 
-    def create_transaction(self, transaction_data=CreateTransaction):
+    def create_transaction(self, user_id: str, transaction_data=CreateTransaction):
         transaction = PostTransaction(
-            user_id=transaction_data.user_id,
+            user_id=user_id,
             category_id=transaction_data.category_id,
             amount=transaction_data.amount,
             transaction_type=transaction_data.transaction_type,
@@ -20,5 +20,5 @@ class TransactionUsecase:
         )
         return self.repository.insert(transaction)
 
-    def get_transactions(self):
-        return self.repository.find_all()
+    def get_transactions(self, user_id: str):
+        return self.repository.find_all(user_id)

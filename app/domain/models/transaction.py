@@ -19,11 +19,10 @@ class Category:
 
 @dataclass
 class Transaction:
-    user_id: UUID
-    category: str
     amount: int
     transaction_type: TransactionType
     date: datetime
+    category: Optional[str] = None
     id: Optional[int] = None
     note: Optional[str] = None
     created_at: datetime = field(default_factory=datetime.now)
@@ -32,9 +31,9 @@ class Transaction:
 @dataclass
 class PostTransaction:
     user_id: UUID
-    category_id: int
     amount: Decimal
     transaction_type: TransactionType
     date: datetime
+    category_id: Optional[int] = None
     note: Optional[str] = None
     created_at: datetime = field(default_factory=datetime.now)

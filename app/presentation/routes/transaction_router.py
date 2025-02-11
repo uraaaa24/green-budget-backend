@@ -12,12 +12,21 @@ prefix = "/transactions"
 
 
 @router.post(prefix, response_model=CreateTransaction)
-def create_transaction(transaction: CreateTransaction, db: Session = Depends(get_db)):
+def create_transaction(
+    transaction: CreateTransaction,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
     usecase = TransactionUsecase(db)
-    return usecase.create_transaction(transaction)
+    return usecase.create_transaction(
+        current_user.id,
+        transaction,
+    )
 
 
 @router.get(prefix, response_model=list[TransactionResponse])
-def get_transactions(db: Session = Depends(get_db), auth=Depends(get_current_user)):
+def get_transactions(
+    db: Session = Depends(get_db), current_user=Depends(get_current_user)
+):
     usecase = TransactionUsecase(db)
-    return usecase.get_transactions()
+    return usecase.get_transactions(current_user.id)

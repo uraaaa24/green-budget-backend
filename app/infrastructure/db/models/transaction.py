@@ -15,7 +15,7 @@ class TransactionModel(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
-    category_id = Column(Integer, nullable=False)
+    category_id = Column(Integer, nullable=True)
     amount = Column(Integer, nullable=False)
     transaction_type = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
