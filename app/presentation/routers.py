@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from app.presentation.category_router import router as category_router
-from app.presentation.transaction_router import router as transaction_router
-from app.presentation.user_router import router as user_router
+from app.presentation.routes.category_router import router as category_router
+from app.presentation.routes.transaction_router import router as transaction_router
+from app.presentation.routes.user_router import router as user_router
 
 router = APIRouter(prefix="/api")
 
