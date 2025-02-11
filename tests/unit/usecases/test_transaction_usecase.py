@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import uuid
 import pytest
 
-from app.schemas.transaction import TransactionCreate
+from app.schemas.responses.transaction import TransactionCreate
 from app.usecases.transaction_usecase import TransactionUsecase
 
 

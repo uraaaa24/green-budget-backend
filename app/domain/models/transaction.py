@@ -1,7 +1,7 @@
+from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Optional
 from uuid import UUID
-from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 

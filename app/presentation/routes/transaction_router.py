@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.infrastructure.auth.deps import get_current_user
 from app.infrastructure.db.deps import get_db
-from app.schemas.transaction import TransactionCreate, TransactionResponse
+from app.schemas.requests.transaction import CreateTransaction
+from app.schemas.responses.transaction import TransactionResponse
 from app.usecases.transaction_usecase import TransactionUsecase
 
 
@@ -11,7 +12,7 @@ prefix = "/transactions"
 
 
 @router.post(prefix, response_model=TransactionResponse)
-def create_transaction(transaction: TransactionCreate, db: Session = Depends(get_db)):
+def create_transaction(transaction: CreateTransaction, db: Session = Depends(get_db)):
     usecase = TransactionUsecase(db)
     return usecase.create_transaction(transaction)
 

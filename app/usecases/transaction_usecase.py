@@ -2,7 +2,7 @@ from app.domain.transaction import Transaction
 from app.infrastructure.repositories.transaction_repository_impl import (
     TransactionRepositoryImpl,
 )
-from app.schemas.transaction import TransactionCreate
+from app.schemas.responses.transaction import TransactionCreate
 
 
 class TransactionUsecase:
