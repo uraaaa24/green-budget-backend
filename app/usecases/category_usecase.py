@@ -1,4 +1,4 @@
-from app.domain.category import Category
+from app.domain.models.transaction import Category
 from app.infrastructure.repositories.category_repository_impl import (
     CategoryRepositoryImpl,
 )

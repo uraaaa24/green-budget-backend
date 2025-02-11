@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy.orm import Session
 
 from app.domain.repositories.user_repository import UserRepository
-from app.domain.user import User
+from app.domain.models.user import User
 from app.infrastructure.db.models.user import UserModel
 
 

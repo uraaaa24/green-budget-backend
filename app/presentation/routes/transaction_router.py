@@ -11,7 +11,7 @@ router = APIRouter(tags=["Transactions"])
 prefix = "/transactions"
 
 
-@router.post(prefix, response_model=TransactionResponse)
+@router.post(prefix, response_model=CreateTransaction)
 def create_transaction(transaction: CreateTransaction, db: Session = Depends(get_db)):
     usecase = TransactionUsecase(db)
     return usecase.create_transaction(transaction)

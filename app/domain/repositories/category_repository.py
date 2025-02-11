@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.domain.category import Category
+from app.domain.models.transaction import Category
 
 
 class CategoryRepository(ABC):

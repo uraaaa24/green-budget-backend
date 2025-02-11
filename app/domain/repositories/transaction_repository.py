@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.domain.transaction import Transaction
+from app.domain.models.transaction import PostTransaction, Transaction
 
 
 class TransactionRepository(ABC):
@@ -9,5 +9,5 @@ class TransactionRepository(ABC):
         pass
 
     @abstractmethod
-    def insert(self, transaction: Transaction) -> Transaction:
+    def insert(self, transaction: PostTransaction) -> Transaction:
         pass

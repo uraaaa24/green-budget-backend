@@ -8,7 +8,7 @@ from fastapi.security import (
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.core.config import settings
-from app.domain.user import User
+from app.domain.models.user import User
 from app.infrastructure.db.deps import get_db
 from app.infrastructure.repositories.user_repository_impl import UserRepositoryImpl
 from app.schemas.user import UserCreate

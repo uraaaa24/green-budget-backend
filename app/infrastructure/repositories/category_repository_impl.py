@@ -1,6 +1,6 @@
 from sqlalchemy import UUID, or_
 from sqlalchemy.orm import Session
-from app.domain.category import Category
+from app.domain.models.transaction import Category
 from app.domain.repositories.category_repository import CategoryRepository
 from app.infrastructure.db.models.category import CategoryModel
 

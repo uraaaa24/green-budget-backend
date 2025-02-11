@@ -12,7 +12,17 @@ class Category(BaseModel):
 class TransactionResponse(BaseModel):
     id: int
     user_id: UUID
-    category: Category
+    category: str
+    amount: int
+    transaction_type: Literal["income", "expense"]
+    date: datetime
+    note: Optional[str] = None
+    created_at: datetime
+
+
+class PostTransactionResponse(BaseModel):
+    user_id: UUID
+    category_id: int
     amount: int
     transaction_type: Literal["income", "expense"]
     date: datetime

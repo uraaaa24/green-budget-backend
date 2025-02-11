@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
+from app.domain.models.transaction import PostTransaction, Transaction
 from app.domain.repositories.transaction_repository import TransactionRepository
-from app.domain.transaction import Category, Transaction
 from app.infrastructure.db import TransactionModel
 from app.infrastructure.db.models.category import CategoryModel
 
@@ -13,7 +13,6 @@ class TransactionRepositoryImpl(TransactionRepository):
         transactions = (
             self.db.query(
                 TransactionModel,
-                CategoryModel.id.label("category_id"),
                 CategoryModel.name.label("category_name"),
             )
             .join(CategoryModel, TransactionModel.category_id == CategoryModel.id)
@@ -24,7 +23,7 @@ class TransactionRepositoryImpl(TransactionRepository):
             Transaction(
                 id=t.TransactionModel.id,
                 user_id=t.TransactionModel.user_id,
-                category=Category(id=t.category_id, name=t.category_name),
+                category=t.category_name,
                 amount=t.TransactionModel.amount,
                 transaction_type=t.TransactionModel.transaction_type,
                 date=t.TransactionModel.date,
@@ -33,7 +32,7 @@ class TransactionRepositoryImpl(TransactionRepository):
             for t in transactions
         ]
 
-    def insert(self, transaction: Transaction) -> Transaction:
+    def insert(self, transaction: PostTransaction) -> PostTransaction:
         db_transaction = TransactionModel(
             user_id=transaction.user_id,
             category_id=transaction.category_id,

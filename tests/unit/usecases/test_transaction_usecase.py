@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import uuid
 import pytest
 
-from app.schemas.responses.transaction import TransactionCreate
+from app.domain.models.transaction import PostTransaction
 from app.usecases.transaction_usecase import TransactionUsecase
 
 
@@ -24,7 +24,7 @@ def test_create_transaction_with_valid_income_data(
 ):
     # Arrange
     user_id = uuid.uuid4()
-    transaction_data = TransactionCreate(
+    transaction_data = PostTransaction(
         user_id=user_id,
         category_id="101",
         amount=100.50,
