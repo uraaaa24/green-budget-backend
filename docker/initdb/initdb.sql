@@ -45,16 +45,20 @@ VALUES
 
 INSERT INTO categories (name, description, transaction_type)
 VALUES 
-  ('Food', 'Expenses for daily meals and dining out.', 'expense'),
-  ('Housing', 'Rent, utilities, and internet bills.', 'expense'),
-  ('Transportation', 'Public transport, fuel, taxi fares.', 'expense'),
-  ('Entertainment', 'Movies, games, hobbies, and travel.', 'expense'),
-  ('Household Items', 'Daily necessities like cleaning supplies.', 'expense'),
-  ('Other Expenses', 'Miscellaneous expenses not listed above.', 'expense'),
-  ('Salary', 'Monthly income from work.', 'income'),
-  ('Side Income', 'Earnings from freelancing or side jobs.', 'income'),
-  ('Bonus', 'Year-end or performance bonuses.', 'income'),
-  ('Other Income', 'Unexpected or additional income.', 'income');
+  ('食費', '外食やスーパー、コンビニでの食事関連の支出。', 'expense'),
+  ('日用品', '洗剤やトイレットペーパーなどの生活必需品。', 'expense'),
+  ('交通費', '電車、バス、ガソリン代などの移動費。', 'expense'),
+  ('住居費', '家賃、ローン、光熱費などの住居関連の支出。', 'expense'),
+  ('通信費', 'スマホ料金やインターネット料金。', 'expense'),
+  ('娯楽・趣味', 'サブスク、映画、ゲームなどの娯楽費。', 'expense'),
+  ('交際費', '飲み会やプレゼントなどの交際関連の費用。', 'expense'),
+  ('医療・美容', '病院、薬、美容院などの健康・美容関連。', 'expense'),
+  ('貯金・投資', '貯金や証券投資、積立など。', 'expense'),
+  ('その他', '分類しづらい支出。', 'expense'),
+  ('給料', '仕事の収入。', 'income'),
+  ('副収入', 'フリーランスや副業の収入。', 'income'),
+  ('ボーナス', '年末や業績によるボーナス。', 'income'),
+  ('その他の収入', '予期しない収入や追加の収入。', 'income');
 
 INSERT INTO transactions (user_id, category_id, amount, transaction_type, note, date)
 VALUES ((SELECT id FROM users WHERE email = 'test@example.com'), 1, 100, 'expense', 'test', '2021-01-01'),
