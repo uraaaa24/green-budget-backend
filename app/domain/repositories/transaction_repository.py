@@ -11,3 +11,7 @@ class TransactionRepository(ABC):
     @abstractmethod
     def insert(self, transaction: PostTransaction) -> Transaction:
         pass
+
+    @abstractmethod
+    def delete(self, user_id: str, transaction_id: str):
+        pass

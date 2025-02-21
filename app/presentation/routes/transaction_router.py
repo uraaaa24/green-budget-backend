@@ -30,3 +30,13 @@ def get_transactions(
 ):
     usecase = TransactionUsecase(db)
     return usecase.get_transactions(current_user.id)
+
+
+@router.delete(f"{prefix}/{{transaction_id}}")
+def delete_transaction(
+    transaction_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+    usecase = TransactionUsecase(db)
+    return usecase.delete_transaction(current_user.id, transaction_id)

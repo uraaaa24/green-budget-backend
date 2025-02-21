@@ -47,3 +47,20 @@ class TransactionRepositoryImpl(TransactionRepository):
 
         transaction.id = db_transaction.id
         return transaction
+
+    def delete(self, user_id: str, transaction_id: str):
+        transaction = (
+            self.db.query(TransactionModel)
+            .filter(TransactionModel.user_id == user_id)
+            .filter(TransactionModel.id == transaction_id)
+            .first()
+        )
+
+        if transaction is None:
+            raise ValueError(
+                f"Transaction with ID {transaction_id} not found for user {user_id}"
+            )
+
+        self.db.delete(transaction)
+        self.db.commit()
+        return transaction_id

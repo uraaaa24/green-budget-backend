@@ -22,3 +22,6 @@ class TransactionUsecase:
 
     def get_transactions(self, user_id: str):
         return self.repository.find_all(user_id)
+
+    def delete_transaction(self, user_id: str, transaction_id: str):
+        return self.repository.delete(user_id, transaction_id)
