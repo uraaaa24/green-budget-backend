@@ -9,8 +9,8 @@ class CategoryUsecase:
     def __init__(self, db):
         self.repository = CategoryRepositoryImpl(db)
 
-    def get_categories(self):
-        return self.repository.find_all()
+    def get_categories(self, user_id: str):
+        return self.repository.find_all(user_id)
 
     def create_category(self, category_data=CategoryCreate):
         category = Category.create(

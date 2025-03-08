@@ -14,7 +14,7 @@ class TransactionResponse(BaseModel):
     amount: int
     transaction_type: Literal["income", "expense"]
     date: datetime
-    category: Optional[Category] = None
+    category: Optional[str] = None
     note: Optional[str] = None
     created_at: datetime
 

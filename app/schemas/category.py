@@ -15,7 +15,6 @@ class CategoryResponse(BaseModel):
     id: int
     name: str
     description: str
-    user_id: Optional[UUID]
     transaction_type: Literal["income", "expense"]
     created_at: datetime
     updated_at: datetime

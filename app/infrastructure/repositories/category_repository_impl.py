@@ -9,13 +9,12 @@ class CategoryRepositoryImpl(CategoryRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def find_all(self) -> list[Category]:
+    def find_all(self, user_id) -> list[Category]:
         categories = (
             self.db.query(CategoryModel)
-            # usersのapiが完成次第コメントアウトを外す
-            # .filter(
-            #     or_(CategoryModel.user_id == user_id, CategoryModel.user_id == None)
-            # )
+            .filter(
+                or_(CategoryModel.user_id == user_id, CategoryModel.user_id == None)
+            )
             .all()
         )
 
